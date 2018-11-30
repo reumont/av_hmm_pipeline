@@ -1,0 +1,12 @@
+[submodule "SeqFilter"]
+	path = SeqFilter
+	url = https://github.com/BioInf-Wuerzburg/SeqFilter.git
+[submodule "perl5lib-Verbose"]
+	path = perl5lib-Verbose
+	url = https://github.com/BioInf-Wuerzburg/perl5lib-Verbose.git
+[submodule "perl5lib-Fasta"]
+	path = perl5lib-Fasta
+	url = https://github.com/BioInf-Wuerzburg/perl5lib-Fasta.git
+[submodule "perl5lib-Fastq"]
+	path = perl5lib-Fastq
+	url = https://github.com/BioInf-Wuerzburg/perl5lib-Fastq.git
