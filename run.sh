@@ -31,5 +31,11 @@ do
 	    "${assemblyfile}" \
 	    > "${OUTFILE_BASENAME}".out
 	date +"[%Y-%m-%d %H:%M:%S] Finished hmmseach for '${hmmfile}' vs '${assemblyfile}'"
+
+	date +"[%Y-%m-%d %H:%M:%S] Starting sequence extraction for '${hmmfile}' vs '${assemblyfile}'"
+	grep -v "^#" "${OUTFILE_BASENAME}".tblout | \
+	    cut -f 1 -d " " | sort | uniq | \
+	    SeqFilter/bin/SeqFilter -o "${OUTFILE_BASENAME}".fasta --ids - "${assemblyfile}"
+	date +"[%Y-%m-%d %H:%M:%S] Finished sequence extraction for '${hmmfile}' vs '${assemblyfile}'"
     done
 done
