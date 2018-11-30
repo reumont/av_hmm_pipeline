@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build a hmm for each file ending in .fa(sta) from alignment folder
-for i in $(find alignments/ -type f | grep "\.fa")
+for i in $(find alignments/ -type f | grep -P "\.fa[^.]*$")
 do
     date +"[%Y-%m-%d %H:%M:%S] Started '${i}'"
 
