@@ -22,7 +22,7 @@ do
     for assemblyfile in $(find assemblies/ -type f | grep -P "\.fa[^.]*$")
     do
 	date +"[%Y-%m-%d %H:%M:%S] Started hmmseach for '${hmmfile}' vs '${assemblyfile}'"
-	OUTFILE_BASENAME=hmmsearch/"${hmmfile}"_vs_"${assemblyfile}"
+	OUTFILE_BASENAME=hmmsearch/$(basename "${hmmfile}")_vs_$(basename "${assemblyfile}")
 	hmmsearch \
 	    --tblout "${OUTFILE_BASENAME}".tblout \
 	    --domtblout "${OUTFILE_BASENAME}".domtblout \
