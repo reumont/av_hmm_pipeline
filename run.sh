@@ -14,6 +14,9 @@ do
     date +"[%Y-%m-%d %H:%M:%S] Finished '${i}'"
 done
 
+# create a temporary file for the ids used later as SeqFilter input
+TEMP_ID_FILE=$(tempfile)
+
 # Search each hmm against each file from assembly folder
 # Get each hmm created in first step
 for hmmfile in $(find hmms/ -type f -name "*.hmm")
@@ -34,8 +37,17 @@ do
 
 	date +"[%Y-%m-%d %H:%M:%S] Starting sequence extraction for '${hmmfile}' vs '${assemblyfile}'"
 	grep -v "^#" "${OUTFILE_BASENAME}".tblout | \
-	    cut -f 1 -d " " | sort | uniq | \
-	    SeqFilter/bin/SeqFilter -o "${OUTFILE_BASENAME}".fasta --ids - "${assemblyfile}"
+	    cut -f 1 -d " " | sort | uniq >"${TEMP_ID_FILE}"
+	if [ -s "${TEMP_ID_FILE}" ]
+	then 
+	    SeqFilter/bin/SeqFilter -o "${OUTFILE_BASENAME}".fasta --ids "${TEMP_ID_FILE}" "${assemblyfile}"
+	else
+	   echo ":/ no hit for output file '${OUTFILE_BASENAME}.fasta', but generating empty file..."
+	   touch "${OUTFILE_BASENAME}".fasta
+	fi
 	date +"[%Y-%m-%d %H:%M:%S] Finished sequence extraction for '${hmmfile}' vs '${assemblyfile}'"
     done
 done
+
+# Deleting of temporary file
+rm "${TEMP_ID_FILE}"
